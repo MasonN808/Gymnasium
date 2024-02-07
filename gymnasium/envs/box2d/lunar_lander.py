@@ -376,21 +376,22 @@ class LunarLander(gym.Env, EzPickle):
         self.moon.color1 = (0.0, 0.0, 0.0)
         self.moon.color2 = (0.0, 0.0, 0.0)
 
-        # Create Lander body
-        if options["initial_position"] or self.start_position:
-            try:
-                x = options["initial_position"][0]
-                y = options["initial_position"][1]
-            except:
-                x = self.start_position[0]
-                y = self.start_position[1]
+        initial_y = VIEWPORT_H / SCALE
+        initial_x = VIEWPORT_W / SCALE / 2
+        
+        if options:
+            # Create Lander body
+            if options["initial_position"] or self.start_position:
+                try:
+                    x = options["initial_position"][0]
+                    y = options["initial_position"][1]
+                except:
+                    x = self.start_position[0]
+                    y = self.start_position[1]
 
-            # Do inverse operation to go from observation to env display positioning
-            initial_x = x * (VIEWPORT_W / SCALE / 2) + (VIEWPORT_W / SCALE / 2)
-            initial_y = y * (VIEWPORT_H / SCALE / 2) + self.helipad_y + LEG_DOWN / SCALE
-        else:
-            initial_y = VIEWPORT_H / SCALE
-            initial_x = VIEWPORT_W / SCALE / 2
+                # Do inverse operation to go from observation to env display positioning
+                initial_x = x * (VIEWPORT_W / SCALE / 2) + (VIEWPORT_W / SCALE / 2)
+                initial_y = y * (VIEWPORT_H / SCALE / 2) + self.helipad_y + LEG_DOWN / SCALE
 
         self.lander: Box2D.b2Body = self.world.CreateDynamicBody(
             position=(initial_x, initial_y),
