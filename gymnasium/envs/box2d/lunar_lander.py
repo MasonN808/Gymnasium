@@ -376,8 +376,8 @@ class LunarLander(gym.Env, EzPickle):
         self.moon.color1 = (0.0, 0.0, 0.0)
         self.moon.color2 = (0.0, 0.0, 0.0)
 
-        initial_y = VIEWPORT_H / SCALE
         initial_x = VIEWPORT_W / SCALE / 2
+        initial_y = VIEWPORT_H / SCALE
         
         # TODO This looks funny
         if self.start_position:
